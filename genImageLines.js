@@ -66,4 +66,17 @@ img1.onload = () => {
     const blendCanvas = document.createElement('canvas');
     blendCanvas.width = canvas.width;
     blendCanvas.height = canvas.height;
-    const blendCtx = blend
+    const blendCtx = blendCanvas.getContext('2d');
+
+     // Draw the first image onto the blended canvas
+    blendCtx.drawImage(img1, 0, 0);
+
+    // Draw the second image onto the blended canvas
+    blendCtx.drawImage(canvas, 0, 0);
+
+    // Display the blended result
+    document.body.appendChild(blendCanvas);
+  };
+  img2.src = 'no_text_DTLW-Barcelona800-1.png';
+};
+img1.src = 'no_text_DTLW-Goteborg1280v2-1.png';
