@@ -66,4 +66,4 @@ img1.onload = () => {
     const blendCanvas = document.createElement('canvas');
     blendCanvas.width = canvas.width;
     blendCanvas.height = canvas.height;
-    const blendCtx = blend;
+    const blendCtx = blend
