@@ -20,6 +20,7 @@ img1.onload = () => {
     for (let i = 0; i < numLines; i++) {
       const y = i * lineHeight;
       const alpha = (Math.sin(time + y * 0.01) + 1) / 2; // generate alpha value from sin wave
+      console.log(alpha2);
       const imageData = ctx.createImageData(canvas.width, lineHeight);
       // Use the original image data as the source for each line
       imageData.data.set(originalImageData.data.subarray(y * canvas.width * 4, (y + lineHeight) * canvas.width * 4));
@@ -48,6 +49,7 @@ img1.onload = () => {
       for (let i = 0; i < numLines; i++) {
         const y = i * lineHeight;
         const alpha2 = (Math.sin(time2 + y * 0.01) + 1) / 2; // generate alpha value from sin wave
+        console.log(alpha2);
         const imageData2 = ctx2.createImageData(canvas.width, lineHeight);
         // Use the original image data as the source for each line
         imageData2.data.set(originalImageData2.data.subarray(y * canvas.width * 4, (y + lineHeight) * canvas.width * 4));
