@@ -18,11 +18,15 @@ img.onload = () => {
     time += 0.1;
     for (let i = 0; i < numLines; i++) {
       const y = i * lineHeight;
-      const offset = Math.sin(time + y * 0.01) * 20;
-      // Use the original image data as the source for each line
+      const alpha = (Math.sin(time + y * 0.01) + 1) / 2; // generate alpha value from sin wave
       const imageData = ctx.createImageData(canvas.width, lineHeight);
+      // Use the original image data as the source for each line
       imageData.data.set(originalImageData.data.subarray(y * canvas.width * 4, (y + lineHeight) * canvas.width * 4));
-      ctx.putImageData(imageData, 0, y + offset);
+      // Set alpha value for each pixel in the line
+      for (let j = 3; j < imageData.data.length; j += 4) {
+        imageData.data[j] *= alpha;
+      }
+      ctx.putImageData(imageData, 0, y);
     }
     requestAnimationFrame(animate);
   }
