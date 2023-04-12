@@ -35,19 +35,23 @@ img1.onload = () => {
   // Add second image on top of the first one
   const img2 = new Image();
   img2.onload = () => {
-    const ctx2 = canvas.getContext('2d');
-    ctx2.globalCompositeOperation = 'destination-out';
+    const canvas2 = document.createElement('canvas');
+    canvas2.width = img2.width;
+    canvas2.height = img2.height;
+    const ctx2 = canvas2.getContext('2d');
     ctx2.drawImage(img2, 0, 0);
     
+    const originalImageData2 = ctx2.getImageData(0, 0, canvas2.width, canvas2.height);
+
     let time2 = 0;
     function animate2() {
       time2 += 0.1;
-      ctx2.globalCompositeOperation = 'source-over';
-      ctx2.drawImage(img1, 0, 0);
       for (let i = 0; i < numLines; i++) {
         const y = i * lineHeight;
         const alpha2 = (Math.sin(time2 + y * 0.01) + 1) / 2; // generate alpha value from sin wave
-        const imageData2 = ctx2.getImageData(0, y, canvas.width, lineHeight);
+        const imageData2 = ctx2.createImageData(canvas2.width, lineHeight);
+        // Use the original image data as the source for each line
+        imageData2.data.set(originalImageData2.data.subarray(y * canvas2.width * 4, (y + lineHeight) * canvas2.width * 4));
         // Set alpha value for each pixel in the line
         for (let j = 3; j < imageData2.data.length; j += 4) {
           imageData2.data[j] *= (1 - alpha2);
@@ -57,7 +61,9 @@ img1.onload = () => {
       requestAnimationFrame(animate2);
     }
     animate2();
-  };
-  img2.src = 'no_text_DTLW-Barcelona800-1.png';
-};
-img1.src = 'no_text_DTLW-Goteborg1280v2-1.png';
+
+    // Create a new canvas element to hold the blended result
+    const blendCanvas = document.createElement('canvas');
+    blendCanvas.width = canvas.width;
+    blendCanvas.height = canvas.height;
+    const blendCtx = blend;
