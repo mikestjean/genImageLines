@@ -12,7 +12,7 @@ img1.onload = () => {
 
   // Create a copy of the original image data
   const originalImageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-
+  
   let time = 0;
   function animate() {
     time += 0.1;
@@ -35,27 +35,24 @@ img1.onload = () => {
   // Add second image on top of the first one
   const img2 = new Image();
   img2.onload = () => {
-    ctx.globalCompositeOperation = 'source-over';
-    ctx.globalAlpha = 1;
-    ctx.drawImage(img2, 0, 0);
+    const ctx2 = canvas.getContext('2d');
+    ctx2.globalCompositeOperation = 'destination-out';
+    ctx2.drawImage(img2, 0, 0);
     
-    const originalImageData2 = ctx.getImageData(0, 0, canvas.width, canvas.height);
-
     let time2 = 0;
     function animate2() {
       time2 += 0.1;
+      ctx2.globalCompositeOperation = 'source-over';
+      ctx2.drawImage(img1, 0, 0);
       for (let i = 0; i < numLines; i++) {
         const y = i * lineHeight;
         const alpha2 = (Math.sin(time2 + y * 0.01) + 1) / 2; // generate alpha value from sin wave
-        const imageData2 = ctx.createImageData(canvas.width, lineHeight);
-        // Use the original image data as the source for each line
-        imageData2.data.set(originalImageData2.data.subarray(y * canvas.width * 4, (y + lineHeight) * canvas.width * 4));
+        const imageData2 = ctx2.getImageData(0, y, canvas.width, lineHeight);
         // Set alpha value for each pixel in the line
         for (let j = 3; j < imageData2.data.length; j += 4) {
           imageData2.data[j] *= (1 - alpha2);
         }
-        ctx.globalAlpha = alpha2;
-        ctx.putImageData(imageData2, 0, y);
+        ctx2.putImageData(imageData2, 0, y);
       }
       requestAnimationFrame(animate2);
     }
