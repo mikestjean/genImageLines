@@ -52,7 +52,7 @@ img1.onload = () => {
         imageData2.data.set(originalImageData2.data.subarray(y * canvas.width * 4, (y + lineHeight) * canvas.width * 4));
         // Set alpha value for each pixel in the line
         for (let j = 3; j < imageData2.data.length; j += 4) {
-          imageData2.data[j - 1] *= alpha2;
+          imageData2.data[j] *= (1 - alpha2);
         }
         ctx.globalAlpha = alpha2;
         ctx.putImageData(imageData2, 0, y);
