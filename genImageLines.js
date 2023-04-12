@@ -40,7 +40,6 @@ img1.onload = () => {
   img2.onload = function() {
     ctx.globalCompositeOperation = 'destination-over';
     ctx.drawImage(img2, 0, 0, canvas.width, canvas.height);
-  };
 
     // Display the blended result
     document.body.appendChild(blendCanvas);
