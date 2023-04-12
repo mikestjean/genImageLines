@@ -55,7 +55,7 @@ img1.onload = () => {
         }
         blendCtx.putImageData(imageData2, 0, y);
       }
-      blendCtx.globalCompositeOperation = 'multiply';
+      blendCtx.globalCompositeOperation = 'source-over';
       blendCtx.drawImage(img2, 0, 0);
       requestAnimationFrame(animate2);
     }
