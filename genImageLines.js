@@ -40,7 +40,7 @@ img1.onload = () => {
     blendCanvas.height = canvas.height;
     const blendCtx = blendCanvas.getContext('2d');
 
-    blendCtx.globalCompositeOperation = 'destination-over';
+    blendCtx.globalCompositeOperation = 'source-over';
     blendCtx.drawImage(img2, 0, 0);
 
     // Display the blended result
