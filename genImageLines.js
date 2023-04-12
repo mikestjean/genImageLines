@@ -67,6 +67,8 @@ img1.onload = () => {
     blendCanvas.width = canvas.width;
     blendCanvas.height = canvas.height;
     const blendCtx = blendCanvas.getContext('2d');
+      blendCtx.globalCompositeOperation = 'multiply';
+    
 
      // Draw the first image onto the blended canvas
     blendCtx.drawImage(img1, 0, 0);
