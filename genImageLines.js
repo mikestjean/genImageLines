@@ -1,7 +1,3 @@
-//this properly animates BOTH images alphas, with proper blending mode (destination-over).
-//this was tested with github & cloudflare succesfully.
-//there is another example .js file where img2 does not animate, to save resources.
-
 const img1 = new Image();
 img1.onload = () => {
   const canvas = document.createElement('canvas');
@@ -37,9 +33,15 @@ img1.onload = () => {
 
   // Load the second image
   const img2 = new Image();
-  img2.onload = function() {
-    ctx.globalCompositeOperation = 'destination-over';
-    ctx.drawImage(img2, 0, 0, canvas.width, canvas.height);
+  img2.onload = () => {
+    // Create a new canvas element to hold the blended result
+    const blendCanvas = document.createElement('canvas');
+    blendCanvas.width = canvas.width;
+    blendCanvas.height = canvas.height;
+    const blendCtx = blendCanvas.getContext('2d');
+
+    blendCtx.globalCompositeOperation = 'destination-over';
+    blendCtx.drawImage(img2, 0, 0);
 
     // Display the blended result
     document.body.appendChild(blendCanvas);
