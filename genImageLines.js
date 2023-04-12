@@ -35,7 +35,7 @@ function handleImagesLoad() {
     for (let i = 0; i < numLines; i++) {
       const y = i * lineHeight;
       const alpha1 = (Math.sin(time + y * 0.01) + 1) / 2; // generate alpha value from sin wave
-      const alpha2 = 1 - alpha1; // calculate second image alpha as offset of first image alpha
+      const alpha2 = 0.5 - alpha1; // calculate second image alpha as offset of first image alpha
       const imageData1 = ctx.createImageData(canvas.width, lineHeight);
       const imageData2 = ctx.createImageData(canvas.width, lineHeight);
       // Use the original image data as the source for each line
