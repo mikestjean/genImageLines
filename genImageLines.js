@@ -37,7 +37,7 @@ img1.onload = () => {
   const img2 = new Image();
   img2.onload = () => {
     const ctx2 = canvas.getContext('2d');
-    ctx2.globalCompositeOperation = 'source-over';
+    ctx2.globalCompositeOperation = 'destination-in';
     ctx2.drawImage(img2, 0, 0);
     
     const originalImageData2 = ctx2.getImageData(0, 0, canvas.width, canvas.height);
